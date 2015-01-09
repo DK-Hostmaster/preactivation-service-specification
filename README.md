@@ -77,11 +77,12 @@ Please see the below section on request flow.
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `checksum' | yes | See section on checksum calculation |
+| `checksum` | yes | See section on checksum calculation |
 
 ## registrar data section
 
 | Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
 | `registrar.keyid` | yes | Registrar key id, identifying a key held with the registry for validation of the request. |
 | `registrar.reference` | yes | A reference for unique identification of the request on the registrar side, equivalent of the mail forms field: 1b. |
 | `registrar.transactionid | yes | Registrars transactionid |
@@ -93,6 +94,7 @@ Please see the below section on request flow.
 ## registrant data section
 
 | Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
 | `registrant.userid` | A | Previously created user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
 | `registrant.type` | B | User type, should be either one of:
  * C, company
@@ -115,6 +117,7 @@ Equivalent of the mail forms version 4a. |
 ## domain data section
 
 | Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
 | `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10 since we only allow up to 10 domain names in the same request. |
 
 # Checksum Calculation
@@ -160,10 +163,9 @@ The following diagram depicts the integration towards the service.
 
 The call-backs to the registrar are handled by the:
 
-* registrar.on_accept - called when DK Hostmaster terms and conditions are accepted
-* registrar.on_reject - called if the DK Hostmaster terms and conditions are not accepted
-* registrar.on_edit - if the user are not agreeing with the presented data and wants to edit data
-* registration.on_error - called in case of an non-critical exception where the error can be handled on the registrar side. 
+* `registrar.on_accept` - called when DK Hostmaster terms and conditions are accepted
+* `registrar.on_reject` - called if the DK Hostmaster terms and conditions are not accepted
+* `registration.on_error` - called in case of an non-critical exception where the error can be handled on the registrar side. 
 
 Critical exceptions are presented locally. Examples of critical issues are:
 
@@ -188,6 +190,7 @@ We only support Danish and English as languages. See: `registrar.language`
 We only support up to 10 domain names in a single request. If requirements for larger pre-activation requests, this number can be raised.
 
 ## Shared-secret Handling
+
 For now the process of handling the shared-secret is handled manually and via DK Hostmaster, please see the technical contact below.
 
 ## Encryption
@@ -200,7 +203,7 @@ The sandbox is for integration and development purposes and will be used to eval
 
 * Registrar-id: REG-999999
 * Shared secret: dkhm-sandbox-test-secret
-* Key-id (registrar.keyid - part of the request): 999888
+* Key-id (`registrar.keyid` - part of the request): 999888
 
 All additional fields should be specified by the calling client.
 
