@@ -96,7 +96,7 @@ Please see the below section on request flow.
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `registrant.userid` | A | Previously created user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
-| `registrant.type` | B | User type, should be either one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms version 4a. |
+| `registrant.type` | B | User type, should be either one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
 | `registrant.name` | B | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
 | `registrant.vatnumber` | B* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
 | `registrant.address.street1` | B | Equivalent of mail form field 4f. |
