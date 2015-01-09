@@ -2,8 +2,8 @@
 	
 # **_DRAFT_**
 
-2014/06/16
-Revision: 1.1
+2015/01/09
+Revision: 2.0
 
 # Introduction
 
@@ -11,7 +11,7 @@ This document describes and specifies the implementation offered by DK Hostmaste
 
 # About this Document
 
-This specification describes version 1 (1.0.0) of the service Implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
+This specification describes version 2 (2.X.X) of the service Implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
 
 Any future extensions and possible additions and changes to the implementation are not within the scope of this document and will not be discussed or mentioned throughout this document.
 
@@ -23,32 +23,37 @@ Any future extensions and possible additions and changes to the implementation a
 * 1.1 2014-06-16 
   * No longer in draft. Added mention of demo client on Github.
 
+* 2.0 2015-01-09
+  * Updated to reflect the version 2 of the service
+
 # The .dk Registry in Brief
 
 DK Hostmaster is the registry for the ccTLD for Denmark (dk). The current model used in Denmark is based on a sole registry, with DK Hostmaster maintaining the central DNS registry.
 
 # Pre-activation Service
 
-The DK Hostmaster’s pre-activation Service is based on a SOA architecture. The implementation is regarded as a service offered to external parties offering pre-activation to customers..
+The DK Hostmaster’s pre-activation Service is based on a SOA architecture. The implementation is regarded as a service offered to external parties offering pre-activation to customers.
 
 The service requires the use of and possible development of client-side software and integration. This is beyond the scope of this specification as the API and other assets for assisting in this are the primary object of this document.
 
 In addition to the assets, DK Hostmaster aims to assist client, users and developers of client software with integration towards DK Hostmaster and therefore provide facilities to ease this integration. This is primarily centered around a sandbox environment and related documentation.
 
 ## Available Environments
+
 DK Hostmaster offers the following environments (see also the Data sheet):
 
-production This environment will be the production environment
-
-sandbox This environment is intended for client development towards the DK Hostmaster pre-activation service.
+| Environment | Role | Description |
+| ----------- | ---- | ----------- |
+| production  | production | This environment is the production environment |
+| sandbox     | development | This environment is intended for client development towards the DK Hostmaster pre-activation service. Also the demo client uses this environment. |
 
 ### Production Environment
 
-In order to use the production environment, the registrar have to provide DK Hostmaster with a shared-secret. This will be appointed a key id, which will have to be used on all subsequent requests toward the production environment. Please see the section on Checksum calculation below.
+In order to use the production environment, the registrar has to provide DK Hostmaster with a shared-secret. This will be appointed a key id, which will have to be used on all subsequent requests toward the production environment as `registrar.keyid`. Please see the section on Checksum calculation below.
 
 ### Sandbox Environment
 
-The sandbox environment offers a known dummy registrar-id and key-id, so all requests to the sandbox environment should use these parameters in all requests.
+The sandbox environment offers a known dummy registrar-id and key-id (registrar.keyid`), so all requests to the sandbox environment should use these parameters in all requests.
 
 # Implementation Requirements
 
@@ -57,10 +62,10 @@ The service is available via HTTPS to the end-customer, meaning for domain name 
 
 A request should consist of the following:
 
-- checksum
-- registrar data section
-- registrant data section
-- domain data section 
+* checksum
+* registrar data section
+* registrant data section
+* domain data section 
 
 The checksum is calculated on a per request basis and relies on request data and predefined values. The latter is simply to protect the registrar userid for being transported in the open via third-party, see more on the checksum calculation in the section below.
 
@@ -68,18 +73,58 @@ The registrar data section consists on a set of data specifying handlers for the
 
 Please see the below section on request flow.
 
+## General parameters (checksum)
 
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `checksum' | yes | See section on checksum calculation |
 
+## registrar data section
 
+| Parameter | Mandatory | Description |
+| `registrar.keyid` | yes | Registrar key id, identifying a key held with the registry for validation of the request. |
+| `registrar.reference` | yes | A reference for unique identification of the request on the registrar side, equivalent of the mail forms field: 1b. |
+| `registrar.transactionid | yes | Registrars transactionid |
+| `registrar.url.on_error` | yes | URL for error handling (see Request flow) |
+| `registrar.url.on_accept` | yes | URL for accept handling (see Request flow) | 
+| `registrar.url.on_reject` | yes | URL for rejection of request (see Request flow) |
+| `registrar.language` | no | The service only supports Danish and English so the value has to be specified as either ‘da’ or ‘en’. IF the value is not defined, the service defaults to the weighted choice between Danish and English specified on the users browser settings. |
+
+## registrant data section
+
+| Parameter | Mandatory | Description |
+| `registrant.userid` | A | Previously created user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
+| `registrant.type` | B | User type, should be either one of:
+ * C, company
+ * P, Public Organisation
+ * A, Association
+ * I, Individual
+Equivalent of the mail forms version 4a. |
+| `registrant.name` | B | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
+| `registrant.vatnumber` | B* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.address.street1` | B | Equivalent of mail form field 4f. |
+| `registrant.address.street2` | B | Equivalent of mail form field 4g. |
+| `registrant.address.street3` | B | Equivalent of mail form field 4h. |
+| `registrant.address.zipcode` | B | Equivalent of mail form field 4i. |
+| `registrant.address.city` | B | Equivalent of mail form field 4j. |
+| `registrant.address.countryregionid` | B | Two-letter country code based on ISO 3166 Alpha 2. Equivalent of mail form field 4fk. (See references below). |
+| `registrant.email` | B | Equivalent of mail form field 4l. |
+| `registrant.phone` | B | Equivalent of mail form field 4m. |
+| `registrant.telefax` | B | Equivalent of mail form field 4n. |
+
+## domain data section
+
+| Parameter | Mandatory | Description |
+| `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10 since we only allow up to 10 domain names in the same request. |
 
 # Checksum Calculation
 
 The checksum calculation is based on the following parameters taken from the request and the data stored with DK Hostmaster.
 
-- shared secret
-- registrar userid
-- registrars transaction id (registrar.transactionid)
-- 1-10 domain names (domain.N.name)
+* shared secret
+* registrar userid
+* registrars transaction id (`registrar.transactionid`)
+* 1-10 domain names (`domain.N.name`)
 
 These should be concatenated to a single string separated by ; (semicolon)
 
@@ -111,24 +156,23 @@ $ echo 'dkhm-sandbox-test-secret;REG-999999;1024;æøå.dk' | shasum -a 256
 
 The following diagram depicts the integration towards the service.
 
-
-
-
+[request flow diagram][preact-request-flow-diagram]
 
 The call-backs to the registrar are handled by the:
 
 * registrar.on_accept - called when DK Hostmaster terms and conditions are accepted
 * registrar.on_reject - called if the DK Hostmaster terms and conditions are not accepted
 * registrar.on_edit - if the user are not agreeing with the presented data and wants to edit data
-* registration.on_error - called in case of an non-critical exception where the error can be handled on the registrar side. Critical exceptions are presented locally. Examples of critical issues are:
+* registration.on_error - called in case of an non-critical exception where the error can be handled on the registrar side. 
+
+Critical exceptions are presented locally. Examples of critical issues are:
 
   * Service issues
   * Possible security violations
 
 The user is presented with the following page on the redirect:
 
-
-
+[preactivation service screendump][preact-screendump]
 
 The edit icon and links will direct back to the registrar for a page where the user can edit the presented data. The ‘I accept’ and ‘I decline’ also direct back to the registrar indicating the action taken by the end-user. When the page is initially called and if the request contains invalid data, under the conditions that they can be validated, will redirect to an error page with the registrar indicating the field not validating.
 
@@ -137,7 +181,7 @@ The service comes with some limitations, these are listed here.
 
 ## Locale
 
-We only support Danish and English as languages. See: registrar.language 
+We only support Danish and English as languages. See: `registrar.language`
 
 ## Amount of Domain Names
 
@@ -174,7 +218,7 @@ Here is a list of documents and references used in this document:
 
 # Resources
 
-A list of resources for DK Hostmaster pre-activation service support is found below.
+A list of resources for DK Hostmaster pre-activation service support is listed below.
 
 ## Demo Client
 
@@ -202,7 +246,11 @@ More information and the latest revision of this specification are available at 
 
 # Data Sheet
 
-| Environment | URI | Notes |
+| Environment | URI | Description |
 | ----------- | --- | ----- |
-| Production | https://preact.dk-hostmaster.dk | Not currently available, availability TBA. |
-| Sandbox | https://preact-sandbox.dk-hostmaster.dk | Currently not being reset with regular intervals. |
+| Production | https://preact.dk-hostmaster.dk | Available |
+| Sandbox | https://preact-sandbox.dk-hostmaster.dk | Available, currently not being reset with regular intervals. |
+
+[preact-screendump]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-screendump.png
+
+[preact-request-flow-diagram]:
