@@ -7,7 +7,7 @@ Revision: 2.0
 
 # Table of Contents
 
-<!-- MarkdownTOC autolink=true bracket=round -->
+<!-- MarkdownTOC depth=3 -->
 
 - [Introduction](#introduction)
 - [About this Document](#about-this-document)
