@@ -49,7 +49,7 @@ DK Hostmaster offers the following environments (see also the Data sheet):
 | Environment | Role | Description |
 | ----------- | ---- | ----------- |
 | production  | production | This environment is the production environment |
-| sandbox     | development | This environment is intended for client development towards the DK Hostmaster pre-activation service. Also the demo client uses this environment. |
+| sandbox     | development | This environment is intended for client development towards the DK Hostmaster pre-activation service. Also [the demo client][preact-demo-client] uses this environment. |
 
 ### Production Environment
 
