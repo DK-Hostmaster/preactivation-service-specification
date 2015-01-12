@@ -15,6 +15,10 @@ This specification describes version 2 (2.X.X) of the service Implementation. Fu
 
 Any future extensions and possible additions and changes to the implementation are not within the scope of this document and will not be discussed or mentioned throughout this document.
 
+This document is owned and maintained by DK Hostmaster A/S and must not be distributed without this information.
+
+All examples provided in the document are fabricated or changed from real data to demonstrate commands etc. any resemblence to actual data are coincidental.
+
 ## Document History
 
 * 1.0 2014-02-28 
