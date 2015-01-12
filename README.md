@@ -120,7 +120,7 @@ In order to use the production environment, the registrar has to provide DK Host
 
 ### Sandbox Environment
 
-The sandbox environment offers a known dummy registrar-id and key-id (registrar.keyid`), so all requests to the sandbox environment should use these parameters in all requests.
+The sandbox environment offers a known dummy registrar-id and key-id (`registrar.keyid`), so all requests to the sandbox environment should use these parameters in all requests.
 
 # Implementation Requirements
 
