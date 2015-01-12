@@ -102,7 +102,8 @@ Please see the below section on request flow.
 | `registrant.userid` | yes (A) | Existing user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
 | `registrant.type` | yes (B) | User type, should be either one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
 | `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
-| `registrant.vatnumber` | no (B) | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.pnumber` | no (B)* | P-number. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a p-number. |
 | `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
 | `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
 | `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
@@ -207,6 +208,7 @@ This URL is called if the user decides to accept the request, please note that t
 | `registrant.type` | yes (B) | User type, one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
 | `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
 | `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.pnumber` | no (B)* | P-number. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a p-number. |
 | `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
 | `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
 | `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
@@ -249,6 +251,7 @@ This URL is called if the user decides to decline the request, please note that 
 | `registrant.type` | yes (B) | User type, one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
 | `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
 | `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.pnumber` | no (B)* | P-number. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a p-number. |
 | `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
 | `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
 | `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
@@ -291,6 +294,7 @@ This URL is called if the user is unable to validate and all attempts to validat
 | `registrant.type` | yes (B) | User type, one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
 | `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
 | `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.pnumber` | no (B)* | P-number. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a p-number. |
 | `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
 | `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
 | `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
