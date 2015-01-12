@@ -206,13 +206,13 @@ All additional fields should be specified by the calling client.
 
 Here is a list of documents and references used in this document:
 
-* General Terms and Conditions: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
-* EPP Service specification: https://www.dk-hostmaster.dk/english/tech-notes/epp/
-* Domain registration form 5.00: https://www.dk-hostmaster.dk/fileadmin/formularer/da-5.00en.txt
-* Documentation on the above form: https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/
-* ISO country codes: http://www.iso.org/iso/country_codes.htm
-* RFC:3282 on Content-language headers: http://www.apps.ietf.org/rfc/rfc3282.html
-* US Secure Hash Algorithms (SHA and HMAC-SHA): https://tools.ietf.org/html/rfc4634
+* [DK Hostmaster: General Terms and Conditions][General Terms and Conditions]
+* [DK Hostmaster: EPP Service Specification][DK Hostmaster EPP Service Specification]
+* [DK Hostmaster: Current domain registration form][Current domain registration form]
+* [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
+* [ISO 3166: Country codes][ISO 3166: Country codes]
+* [RFC 3282: Content-language headers][RFC 3282: Content-language headers]
+* [RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)][RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)]
 
 # Resources
 
@@ -249,6 +249,16 @@ More information and the latest revision of this specification are available at 
 | Production | https://preact.dk-hostmaster.dk | Available |
 | Sandbox | https://preact-sandbox.dk-hostmaster.dk | Available, currently not being reset with regular intervals. |
 
+[DK Hostmaster EPP Service Specification]: https://github.com/DK-Hostmaster/epp-service-specification
+
+[General Terms and Conditions]: https://www.dk-hostmaster.dk/fileadmin/filer/pdf/generelle_vilkaar/general-conditions.pdf
+
 [preact-screendump]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-screendump.png
 
 [preact-request-flow-diagram]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-request-flow-diagram.png
+
+[ISO 3166: Country codes]: http://www.iso.org/iso/country_codes.htm
+
+[RFC 3282: Content-language headers]: http://www.apps.ietf.org/rfc/rfc3282.html
+
+[RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)]: https://tools.ietf.org/html/rfc4634
