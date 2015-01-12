@@ -7,7 +7,7 @@ Revision: 2.0
 
 # Table of Contents
 
-<!-- MarkdownTOC -->
+<!-- MarkdownTOC autolink=true -->
 
 - [Introduction][introduction]
 - [About this Document][about-this-document]
@@ -456,7 +456,7 @@ More information and the latest revision of this specification are available at 
 
 * [preact-service-central][preact-service-central]
 
-# Data Sheet
+# Data Sheet [data-sheet]
 
 | Environment | URI | Description |
 | ----------- | --- | ----- |
