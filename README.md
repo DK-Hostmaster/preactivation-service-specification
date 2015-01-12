@@ -5,6 +5,45 @@
 2015/01/09
 Revision: 2.0
 
+# Table of Contents
+
+<!-- MarkdownTOC -->
+
+- Introduction
+- About this Document
+	- Document History
+- The .dk Registry in Brief
+- Pre-activation Service
+	- Migration from version 1 to 2
+	- Available Environments
+- Implementation Requirements
+	- General parameters (checksum)
+	- registrar data section
+	- registrant data section
+	- domain data section
+- Checksum Calculation
+	- Example Checksum Calculation
+- Request Flow
+	- on_accept
+	- on_reject
+	- on_fail
+	- on_error
+- Implementation Limitations
+	- Locale
+	- Amount of Domain Names
+	- Shared-secret Handling
+	- Encryption
+	- Sandbox Environment
+- References
+- Resources
+	- Demo Client
+	- Mailing list
+	- Issue Reporting
+	- Additional Information
+- Data Sheet
+
+<!-- /MarkdownTOC -->
+
 # Introduction
 
 This document describes and specifies the implementation offered by DK Hostmaster for interaction with the central registry for the ccTLD dk using our pre-activation service. It is primarily aimed at a technical audience, and the reader is required to have prior knowledge of domain name registration.
