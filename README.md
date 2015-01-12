@@ -84,7 +84,7 @@ Please see the below section on request flow.
 | Parameter | Mandatory | Description |
 | `registrar.keyid` | yes | Registrar key id, identifying a key held with the registry for validation of the request. |
 | `registrar.reference` | yes | A reference for unique identification of the request on the registrar side, equivalent of the mail forms field: 1b. |
-| `registrar.transactionid | yes | Registrars transactionid |
+| `registrar.transactionid` | yes | Registrars transactionid |
 | `registrar.url.on_error` | yes | URL for error handling (see Request flow) |
 | `registrar.url.on_accept` | yes | URL for accept handling (see Request flow) | 
 | `registrar.url.on_reject` | yes | URL for rejection of request (see Request flow) |
