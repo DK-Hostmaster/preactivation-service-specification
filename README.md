@@ -423,7 +423,7 @@ More information and the latest revision of this specification are available at 
 
 [ISO 3166: Country codes]: http://www.iso.org/iso/country_codes.htm
 
-[RFC 3282: Content-language headers]: http://www.apps.ietf.org/rfc/rfc3282.html
+[RFC 3282: Content-language headers]: https://tools.ietf.org/html/rfc3282
 
 [RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)]: https://tools.ietf.org/html/rfc4634
 
