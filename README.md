@@ -42,6 +42,15 @@ The service requires the use of and possible development of client-side software
 
 In addition to the assets, DK Hostmaster aims to assist client, users and developers of client software with integration towards DK Hostmaster and therefore provide facilities to ease this integration. This is primarily centered around a sandbox environment and related documentation.
 
+## Migration from version 1 to 2
+
+* `registrar.url.on_edit` deprecated, data correction and validation is handled by DK Hostmaster
+
+* `registrar.url.on_fail` introduced, called of all attempts to validate data are exhausted
+* `registrar.pnumber` introduced, for validation of danish legal entities having a CVR number (`registrant.vatnumber`), can be used in conjunction with as `registrant.pnumber` or or be left out
+
+* `registrar.url.on_accept` and `registrar.url.on_decline` now get a complete data set returned from the service, since validation and data alteration is handles by the pre-activation service
+
 ## Available Environments
 
 DK Hostmaster offers the following environments (see also the Data sheet):
