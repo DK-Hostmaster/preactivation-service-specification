@@ -262,3 +262,8 @@ More information and the latest revision of this specification are available at 
 [RFC 3282: Content-language headers]: http://www.apps.ietf.org/rfc/rfc3282.html
 
 [RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)]: https://tools.ietf.org/html/rfc4634
+
+[Current domain registration form]: https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt
+
+[Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/
+
