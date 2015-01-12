@@ -128,7 +128,7 @@ The checksum calculation is based on the following parameters taken from the req
 * registrars transaction id (`registrar.transactionid`)
 * 1-10 domain names (`domain.N.name`)
 
-These should be concatenated to a single string separated by ; (semicolon)
+These should be concatenated to a single string separated by `;` (semicolon)
 
 ## Example Checksum Calculation
 
