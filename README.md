@@ -88,7 +88,7 @@ Please see the below section on request flow.
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `registrar.keyid` | yes | Registrar key id, identifying a key held with the registry for validation of the request. |
-| `registrar.reference` | yes | A reference for unique identification of the request on the registrar side, equivalent of the mail forms field: 1b. |
+| `registrar.reference` | yes | Reference for unique identification of the request from the registrar, equivalent of the mail forms field: 1b. |
 | `registrar.transactionid` | yes | Registrars transactionid |
 | `registrar.url.on_error` | yes | URL for error handling (see Request flow) |
 | `registrar.url.on_accept` | yes | URL for accept handling (see Request flow) | 
@@ -99,19 +99,19 @@ Please see the below section on request flow.
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `registrant.userid` | A | Previously created user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
-| `registrant.type` | B | User type, should be either one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
-| `registrant.name` | B | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
-| `registrant.vatnumber` | B* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
-| `registrant.address.street1` | B | Equivalent of mail form field 4f. |
-| `registrant.address.street2` | B | Equivalent of mail form field 4g. |
-| `registrant.address.street3` | B | Equivalent of mail form field 4h. |
-| `registrant.address.zipcode` | B | Equivalent of mail form field 4i. |
-| `registrant.address.city` | B | Equivalent of mail form field 4j. |
-| `registrant.address.countryregionid` | B | Two-letter country code based on ISO 3166 Alpha 2. Equivalent of mail form field 4fk. (See references below). |
-| `registrant.email` | B | Equivalent of mail form field 4l. |
-| `registrant.phone` | B | Equivalent of mail form field 4m. |
-| `registrant.telefax` | B | Equivalent of mail form field 4n. |
+| `registrant.userid` | yes (A) | Existing user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
+| `registrant.type` | yes (B) | User type, should be either one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
+| `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
+| `registrant.vatnumber` | no (B) | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
+| `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
+| `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
+| `registrant.address.zipcode` | yes (B) | Equivalent of mail form field 4i. |
+| `registrant.address.city` | yes (B) | Equivalent of mail form field 4j. |
+| `registrant.address.countryregionid` | yes (B) | Two-letter country code based on ISO 3166 Alpha 2. Equivalent of mail form field 4fk. (See references below). |
+| `registrant.email` | yes (B) | Equivalent of mail form field 4l. |
+| `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
+| `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
 
 ## domain data section
 
@@ -176,6 +176,140 @@ The user is presented with the following page on the redirect:
 ![preactivation service screendump][preact-screendump]
 
 The edit icon and links will direct back to the registrar for a page where the user can edit the presented data. The ‘I accept’ and ‘I decline’ also direct back to the registrar indicating the action taken by the end-user. When the page is initially called and if the request contains invalid data, under the conditions that they can be validated, will redirect to an error page with the registrar indicating the field not validating.
+
+The data provided to the different handlers are described in detail below. The different handlers are used in different scenarios, there is however no restriction on where the URLs point and they can all 
+point to the same end-point if this is requested.
+
+## on_error
+
+### General parameters (status)
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `status` | yes | Value: `error` |
+| `error` | yes | Error message |
+| `where` | yes | Error indicator |
+
+## on_accept
+
+### General parameters (status)
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `token` | yes | Token for inclusion on either mailform or EPP request |
+| `status` | yes | Value: `accepted` |
+
+### registrar data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
+| `registrar.transactionid` | yes | Registrars transactionid |
+| `registrar.language` | no | echo of the language resolved for the registrant (see: Request) |
+
+### registrant data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `registrant.userid` | yes (A) | Existing user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
+| `registrant.type` | yes (B) | User type, one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
+| `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
+| `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
+| `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
+| `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
+| `registrant.address.zipcode` | yes (B) | Equivalent of mail form field 4i. |
+| `registrant.address.city` | yes (B) | Equivalent of mail form field 4j. |
+| `registrant.address.countryregionid` | yes (B) | Two-letter country code based on ISO 3166 Alpha 2. Equivalent of mail form field 4fk. (See references below). |
+| `registrant.email` | yes (B) | Equivalent of mail form field 4l. |
+| `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
+| `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
+
+### domain data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
+
+## on_reject
+
+### General parameters (status)
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `status` | yes | Value: `rejected` |
+
+### registrar data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
+| `registrar.transactionid` | yes | Registrars transactionid |
+| `registrar.language` | no | echo of the language resolved for the registrant (see: Request) |
+
+### registrant data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `registrant.userid` | yes (A) | Existing user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
+| `registrant.type` | yes (B) | User type, one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
+| `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
+| `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
+| `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
+| `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
+| `registrant.address.zipcode` | yes (B) | Equivalent of mail form field 4i. |
+| `registrant.address.city` | yes (B) | Equivalent of mail form field 4j. |
+| `registrant.address.countryregionid` | yes (B) | Two-letter country code based on ISO 3166 Alpha 2. Equivalent of mail form field 4fk. (See references below). |
+| `registrant.email` | yes (B) | Equivalent of mail form field 4l. |
+| `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
+| `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
+
+### domain data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
+
+## on_fail
+
+### General parameters (status)
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `status` | yes | Value: `failed` |
+
+### registrar data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
+| `registrar.transactionid` | yes | Registrars transactionid |
+| `registrar.language` | no | echo of the language resolved for the registrant (see: Request) |
+
+### registrant data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `registrant.userid` | yes (A) | Existing user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
+| `registrant.type` | yes (B) | User type, one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
+| `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
+| `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
+| `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
+| `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
+| `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
+| `registrant.address.zipcode` | yes (B) | Equivalent of mail form field 4i. |
+| `registrant.address.city` | yes (B) | Equivalent of mail form field 4j. |
+| `registrant.address.countryregionid` | yes (B) | Two-letter country code based on ISO 3166 Alpha 2. Equivalent of mail form field 4fk. (See references below). |
+| `registrant.email` | yes (B) | Equivalent of mail form field 4l. |
+| `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
+| `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
+
+### domain data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
 
 # Implementation Limitations
 The service comes with some limitations, these are listed here.
