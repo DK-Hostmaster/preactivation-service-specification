@@ -250,5 +250,5 @@ More information and the latest revision of this specification are available at 
 | Sandbox | https://preact-sandbox.dk-hostmaster.dk | Available, currently not being reset with regular intervals. |
 
 [preact-screendump]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-screendump.png
- https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-request-flow-diagram.png
- 
+
+[preact-request-flow-diagram]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-request-flow-diagram.png
