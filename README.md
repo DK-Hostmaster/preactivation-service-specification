@@ -180,17 +180,9 @@ The edit icon and links will direct back to the registrar for a page where the u
 The data provided to the different handlers are described in detail below. The different handlers are used in different scenarios, there is however no restriction on where the URLs point and they can all 
 point to the same end-point if this is requested.
 
-## on_error
-
-### General parameters (status)
-
-| Parameter | Mandatory | Description |
-| --------- | --------- | ----------- |
-| `status` | yes | Value: `error` |
-| `error` | yes | Error message |
-| `where` | yes | Error indicator |
-
 ## on_accept
+
+This URL is called if the user decides to accept the request, please note that the returned data have been validated using external resources or the submitted data are valid for the role of registrant.
 
 ### General parameters (status)
 
@@ -233,6 +225,8 @@ point to the same end-point if this is requested.
 
 ## on_reject
 
+This URL is called if the user decides to decline the request, please note that the returned data have been validated in this case or the submitted data are valid for the role of registrant.
+
 ### General parameters (status)
 
 | Parameter | Mandatory | Description |
@@ -273,6 +267,8 @@ point to the same end-point if this is requested.
 
 ## on_fail
 
+This URL is called if the user is unable to validate and all attempts to validate towards external resources are exhausted or the submitted data are not valid for the role of registrant. Please note that the returned data have not been validated and are returned _as-is_.
+
 ### General parameters (status)
 
 | Parameter | Mandatory | Description |
@@ -310,6 +306,19 @@ point to the same end-point if this is requested.
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
+
+## on_error
+
+This URL is called if the request is valid, but it cannot be presented by the pre-activation service.
+If possible and applicable the error location will be attempted identified if it relates to a single field pointing to malformed or missing data. The latter will be described in the error message in the `error` field. The request should be resubmitted if possible.
+
+### General parameters (status)
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `status` | yes | Value: `error` |
+| `error` | yes | Error message |
+| `where` | no | Error location indicator if applicable, meaning possibly a missing data field or completely incomprehensible piece of data |
 
 # Implementation Limitations
 The service comes with some limitations, these are listed here.
