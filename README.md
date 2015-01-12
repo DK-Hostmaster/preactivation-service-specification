@@ -222,7 +222,7 @@ A list of resources for DK Hostmaster pre-activation service support is listed b
 
 We have made a demo client available as open source under the MIT license. The client is implemented using Perl and Mojolicious and is available on Github:
 
-* https://github.com/DK-Hostmaster/preact-demo-client-mojolicious
+* [preact-demo-client][preact-demo-client]
 
 ## Mailing list
 
@@ -240,7 +240,7 @@ For issue reporting related to this specification, the pre-activation service, s
 
 More information and the latest revision of this specification are available at the DK Hostmaster website:
 
-* https://www.dk-hostmaster.dk/english/tech-notes/pre-activation/
+* [preact-service-central][preact-service-central]
 
 # Data Sheet
 
@@ -256,6 +256,10 @@ More information and the latest revision of this specification are available at 
 [preact-screendump]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-screendump.png
 
 [preact-request-flow-diagram]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-request-flow-diagram.png
+
+[preact-service-central]: https://www.dk-hostmaster.dk/english/tech-notes/pre-activation/
+
+[preact-demo-client]: https://github.com/DK-Hostmaster/preact-demo-client-mojolicious
 
 [ISO 3166: Country codes]: http://www.iso.org/iso/country_codes.htm
 
