@@ -156,7 +156,7 @@ $ echo 'dkhm-sandbox-test-secret;REG-999999;1024;æøå.dk' | shasum -a 256
 
 The following diagram depicts the integration towards the service.
 
-[request flow diagram][preact-request-flow-diagram]
+![request flow diagram][preact-request-flow-diagram]
 
 The call-backs to the registrar are handled by the:
 
@@ -172,7 +172,7 @@ Critical exceptions are presented locally. Examples of critical issues are:
 
 The user is presented with the following page on the redirect:
 
-[preactivation service screendump][preact-screendump]
+![preactivation service screendump][preact-screendump]
 
 The edit icon and links will direct back to the registrar for a page where the user can edit the presented data. The ‘I accept’ and ‘I decline’ also direct back to the registrar indicating the action taken by the end-user. When the page is initially called and if the request contains invalid data, under the conditions that they can be validated, will redirect to an error page with the registrar indicating the field not validating.
 
