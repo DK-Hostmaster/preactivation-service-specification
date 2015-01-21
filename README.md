@@ -25,6 +25,7 @@ Any future extensions and possible additions and changes to the implementation a
 
 * 2.0 2015-01-09
   * Updated to reflect the version 2 of the service
+  * Updated checksum calculation example, the behaviour of the `echo` command had to be taken into consideration
 
 # The .dk Registry in Brief
 
@@ -146,8 +147,8 @@ nolongersecret;reg-999999;1024;æøå.dk
 ```
 
 ```bash
-$ echo 'dkhm-sandbox-test-secret;REG-999999;1024;æøå.dk' | shasum -a 256 
-53c7bd295c3c95e65d9a1fb4dc6c6d6892e967a84571cc57d77630407d07d7f4
+$ echo -n 'dkhm-sandbox-test-secret;REG-999999;1024;æøå.dk' | shasum -a 256 
+f74c49ad3133266bedaebc121a8f82ac81216414783c48d967d61dac15ac0fff
 ```
 
 # Request Flow
