@@ -9,53 +9,53 @@ Revision: 2.0
 
 <!-- MarkdownTOC depth=3 -->
 
-- [Introduction](#introduction)
-- [About this Document](#about-this-document)
-	- [Document History](#document-history)
-- [The .dk Registry in Brief](#the-dk-registry-in-brief)
-- [Pre-activation Service](#pre-activation-service)
-	- [Migration from version 1 to 2](#migration-from-version-1-to-2)
-	- [Available Environments](#available-environments)
-		- [Production Environment](#production-environment)
-		- [Sandbox Environment](#sandbox-environment)
-- [Implementation Requirements](#implementation-requirements)
-	- [General parameters (checksum)](#general-parameters-checksum)
-	- [registrar data section](#registrar-data-section)
-	- [registrant data section](#registrant-data-section)
-	- [domain data section](#domain-data-section)
-- [Checksum Calculation](#checksum-calculation)
-	- [Example Checksum Calculation](#example-checksum-calculation)
-- [Request Flow](#request-flow)
-	- [on_accept](#on_accept)
-		- [General parameters (status)](#general-parameters-status)
-		- [registrar data section](#registrar-data-section-1)
-		- [registrant data section](#registrant-data-section-1)
-		- [domain data section](#domain-data-section-1)
-	- [on_reject](#on_reject)
-		- [General parameters (status)](#general-parameters-status-1)
-		- [registrar data section](#registrar-data-section-2)
-		- [registrant data section](#registrant-data-section-2)
-		- [domain data section](#domain-data-section-2)
-	- [on_fail](#on_fail)
-		- [General parameters (status)](#general-parameters-status-2)
-		- [registrar data section](#registrar-data-section-3)
-		- [registrant data section](#registrant-data-section-3)
-		- [domain data section](#domain-data-section-3)
-	- [on_error](#on_error)
-		- [General parameters (status)](#general-parameters-status-3)
-- [Implementation Limitations](#implementation-limitations)
-	- [Locale](#locale)
-	- [Amount of Domain Names](#amount-of-domain-names)
-	- [Shared-secret Handling](#shared-secret-handling)
-	- [Encryption](#encryption)
-	- [Sandbox Environment](#sandbox-environment-1)
-- [References](#references)
-- [Resources](#resources)
-	- [Demo Client](#demo-client)
-	- [Mailing list](#mailing-list)
-	- [Issue Reporting](#issue-reporting)
-	- [Additional Information](#additional-information)
-- [Data Sheet](#data-sheet)
+- [Introduction][introduction]
+- [About this Document][about-this-document]
+	- [Document History][document-history]
+- [The .dk Registry in Brief][the-dk-registry-in-brief]
+- [Pre-activation Service][pre-activation-service]
+	- [Migration from version 1 to 2][migration-from-version-1-to-2]
+	- [Available Environments][available-environments]
+		- [Production Environment][production-environment]
+		- [Sandbox Environment][sandbox-environment]
+- [Implementation Requirements][implementation-requirements]
+	- [General parameters (checksum)][general-parameters-checksum]
+	- [registrar data section][registrar-data-section]
+	- [registrant data section][registrant-data-section]
+	- [domain data section][domain-data-section]
+- [Checksum Calculation][checksum-calculation]
+	- [Example Checksum Calculation][example-checksum-calculation]
+- [Request Flow][request-flow]
+	- [on_accept][on_accept]
+		- [General parameters (status)][general-parameters-status]
+		- [registrar data section][registrar-data-section-1]
+		- [registrant data section][registrant-data-section-1]
+		- [domain data section][domain-data-section-1]
+	- [on_reject][on_reject]
+		- [General parameters (status)][general-parameters-status-1]
+		- [registrar data section][registrar-data-section-2]
+		- [registrant data section][registrant-data-section-2]
+		- [domain data section][domain-data-section-2]
+	- [on_fail][on_fail]
+		- [General parameters (status)][general-parameters-status-2]
+		- [registrar data section][registrar-data-section-3]
+		- [registrant data section][registrant-data-section-3]
+		- [domain data section][domain-data-section-3]
+	- [on_error][on_error]
+		- [General parameters (status)][general-parameters-status-3]
+- [Implementation Limitations][implementation-limitations]
+	- [Locale][locale]
+	- [Amount of Domain Names][amount-of-domain-names]
+	- [Shared-secret Handling][shared-secret-handling]
+	- [Encryption][encryption]
+	- [Sandbox Environment][sandbox-environment-1]
+- [References][references]
+- [Resources][resources]
+	- [Demo Client][demo-client]
+	- [Mailing list][mailing-list]
+	- [Issue Reporting][issue-reporting]
+	- [Additional Information][additional-information]
+- [Data Sheet][data-sheet]
 
 <!-- /MarkdownTOC -->
 
@@ -91,7 +91,7 @@ DK Hostmaster is the registry for the ccTLD for Denmark (dk). The current model 
 
 # Pre-activation Service
 
-The DK Hostmaster’s pre-activation Service is based on a SOA architecture. The implementation is regarded as a service offered to external parties offering pre-activation to customers.
+The DK Hostmaster pre-activation Service is based on a SOA architecture. The implementation is regarded as a service offered to external parties offering pre-activation to customers.
 
 The service requires the use of and possible development of client-side software and integration. This is beyond the scope of this specification as the API and other assets for assisting in this are the primary object of this document.
 
