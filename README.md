@@ -156,7 +156,8 @@ Please see the below section on request flow.
 | `registrar.reference` | yes | Reference for unique identification of the request from the registrar, equivalent of the mail forms field: 1b. |
 | `registrar.transactionid` | yes | Registrars transactionid |
 | `registrar.url.on_error` | yes | URL for error handling (see Request flow) |
-| `registrar.url.on_accept` | yes | URL for accept handling (see Request flow) | 
+| `registrar.url.on_accept` | yes | URL for accept handling (see Request flow) |
+| `registrar.url.on_fail` | yes | URL for validation failure handling (see Request flow) | 
 | `registrar.url.on_reject` | yes | URL for rejection of request (see Request flow) |
 | `registrar.language` | no | The service only supports Danish and English so the value has to be specified as either ‘da’ or ‘en’. IF the value is not defined, the service defaults to the weighted choice between Danish and English specified on the users browser settings. |
 
