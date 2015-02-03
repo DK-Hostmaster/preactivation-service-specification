@@ -232,6 +232,7 @@ The call-backs to the registrar are handled by the:
 * `registrar.on_accept` - called when DK Hostmaster terms and conditions are accepted
 * `registrar.on_reject` - called if the DK Hostmaster terms and conditions are not accepted
 * `registration.on_error` - called in case of an non-critical exception where the error can be handled on the registrar side. 
+* `registration.on_fail` - called in case of an validation attempts are exhausted.
 
 Critical exceptions are presented locally. Examples of critical issues are:
 
