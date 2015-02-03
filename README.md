@@ -102,6 +102,7 @@ In addition to the assets, DK Hostmaster aims to assist client, users and develo
 * `registrar.url.on_edit` deprecated, data correction and validation is handled by DK Hostmaster
 
 * `registrar.url.on_fail` introduced, called of all attempts to validate data are exhausted
+
 * `registrar.pnumber` introduced, for validation of danish legal entities having a CVR number (`registrant.vatnumber`), can be used in conjunction with as `registrant.pnumber` or or be left out
 
 * `registrar.url.on_accept` and `registrar.url.on_decline` now get a complete data set returned from the service, since validation and data alteration is handles by the pre-activation service
