@@ -43,6 +43,7 @@ Revision: 2.0
 		- [domain data section](#domain-data-section-3)
 	- [on_error](#on_error)
 		- [General parameters (status)](#general-parameters-status-3)
+- [Validation](#validation)
 - [Implementation Limitations](#implementation-limitations)
 	- [Locale](#locale)
 	- [Amount of Domain Names](#amount-of-domain-names)
@@ -105,7 +106,9 @@ In addition to the assets, DK Hostmaster aims to assist client, users and develo
 
 * `registrar.pnumber` introduced, for validation of danish legal entities having a CVR number (`registrant.vatnumber`), can be used in conjunction with as `registrant.pnumber` or or be left out
 
-* `registrar.url.on_accept` and `registrar.url.on_decline` now get a complete data set returned from the service, since validation and data alteration is handles by the pre-activation service
+* `registrar.url.on_accept` and `registrar.url.on_reject` now get a complete data set returned from the service, since validation and data alteration is handles by the pre-activation service
+
+* All of the return data has been extended due to validation taking place so the data submitted might have changed over the course of the validation and is hence returned in the final and accepted state. Please note that this is primarily relevant where validation is taking place.
 
 ## Available Environments
 
@@ -390,6 +393,27 @@ If possible and applicable the error location will be attempted identified if it
 | `status` | yes | Value: `error` |
 | `error` | yes | Error message |
 | `where` | no | Error location indicator if applicable, meaning possibly a missing data field or completely incomprehensible piece of data |
+
+# Validation
+
+Validation of the registrant is a legal requirement outlined in the danish law on domain names.
+
+Validation can be accomplished according to the following matrix.
+
+| Entity | Country | Resource |
+| ------ | ------- | -------- |
+| Company | DK | CVR |
+| Association | DK | CVR |
+| Public Organisation | DK | CVR |
+| Individual | DK | Name and address, possibly extended to social security number (CPR), hence requiring NemID for collection |
+| Company | Non-DK | N/A |
+| Association | Non-DK | N/A |
+| Public Organisation | Non-DK | N/A |
+| Individual | Non-DK | N/A |
+
+Failure to validate according to the above matrix, results in a callback to `on_fail` as specified by the registrar. If the registrar decides to submit the registration application anyway the validation step will be repeated and the registrant will be attempted validated again.
+
+Please note that the validation process is relevant for both new and existing users if a referenced user entity has not been validated on a prior occassion.
 
 # Implementation Limitations
 The service comes with some limitations, these are listed here.
