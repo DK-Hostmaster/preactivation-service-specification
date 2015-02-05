@@ -29,17 +29,19 @@ Revision: 2.0
 	- [on_accept](#on_accept)
 		- [General parameters (status)](#general-parameters-status)
 		- [registrar data section](#registrar-data-section-1)
-		- [registrant data section](#registrant-data-section-1)
+		- [registrant data section (if validated)](#registrant-data-section-if-validated)
+		- [registrant data section (if not-validated)](#registrant-data-section-if-not-validated)
 		- [domain data section](#domain-data-section-1)
 	- [on_reject](#on_reject)
 		- [General parameters (status)](#general-parameters-status-1)
 		- [registrar data section](#registrar-data-section-2)
-		- [registrant data section](#registrant-data-section-2)
+		- [registrant data section (if validated)](#registrant-data-section-if-validated-1)
+		- [registrant data section (if not validated)](#registrant-data-section-if-not-validated-1)
 		- [domain data section](#domain-data-section-2)
 	- [on_fail](#on_fail)
 		- [General parameters (status)](#general-parameters-status-2)
 		- [registrar data section](#registrar-data-section-3)
-		- [registrant data section](#registrant-data-section-3)
+		- [registrant data section](#registrant-data-section-1)
 		- [domain data section](#domain-data-section-3)
 	- [on_error](#on_error)
 		- [General parameters (status)](#general-parameters-status-3)
@@ -66,7 +68,7 @@ This document describes and specifies the implementation offered by DK Hostmaste
 
 # About this Document
 
-This specification describes version 2 (2.X.X) of the service Implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
+This specification describes version 2 (2.X.X) of the service implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
 
 Any future extensions and possible additions and changes to the implementation are not within the scope of this document and will not be discussed or mentioned throughout this document.
 
@@ -107,6 +109,11 @@ In addition to the assets, DK Hostmaster aims to assist client, users and develo
 * `registrar.pnumber` introduced, for validation of danish legal entities having a CVR number (`registrant.vatnumber`), can be used in conjunction with as `registrant.pnumber` or or be left out
 
 * `registrar.url.on_accept` and `registrar.url.on_reject` now get a complete data set returned from the service, since validation and data alteration is handles by the pre-activation service
+
+* `registrar.language` has been deprecated, instead the service offers two end-points as dedicated URLs indicated the language to be used, like so:
+
+  * https://preact.dk-hostmaster.dk/en
+  * https://preact.dk-hostmaster.dk/da
 
 * All of the return data has been extended due to validation taking place so the data submitted might have changed over the course of the validation and is hence returned in the final and accepted state. Please note that this is primarily relevant where validation is taking place.
 
@@ -162,7 +169,6 @@ Please see the below section on request flow.
 | `registrar.url.on_accept` | yes | URL for accept handling (see Request flow) |
 | `registrar.url.on_fail` | yes | URL for validation failure handling (see Request flow) | 
 | `registrar.url.on_reject` | yes | URL for rejection of request (see Request flow) |
-| `registrar.language` | no | The service only supports Danish and English so the value has to be specified as either ‘da’ or ‘en’. IF the value is not defined, the service defaults to the weighted choice between Danish and English specified on the users browser settings. |
 
 ## registrant data section
 
@@ -268,9 +274,8 @@ This URL is called if the user decides to accept the request, please note that t
 | --------- | --------- | ----------- |
 | `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
-| `registrar.language` | no | echo of the language resolved for the registrant (see: Request) |
 
-### registrant data section
+### registrant data section (if validated)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
@@ -288,6 +293,11 @@ This URL is called if the user decides to accept the request, please note that t
 | `registrant.email` | yes (B) | Equivalent of mail form field 4l. |
 | `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
 | `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
+
+### registrant data section (if not-validated)
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
 
 ### domain data section
 
@@ -311,9 +321,8 @@ This URL is called if the user decides to decline the request, please note that 
 | --------- | --------- | ----------- |
 | `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
-| `registrar.language` | no | echo of the language resolved for the registrant (see: Request) |
 
-### registrant data section
+### registrant data section (if validated)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
@@ -331,6 +340,11 @@ This URL is called if the user decides to decline the request, please note that 
 | `registrant.email` | yes (B) | Equivalent of mail form field 4l. |
 | `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
 | `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
+
+### registrant data section (if not validated)
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
 
 ### domain data section
 
@@ -354,26 +368,11 @@ This URL is called if the user is unable to validate and all attempts to validat
 | --------- | --------- | ----------- |
 | `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
-| `registrar.language` | no | echo of the language resolved for the registrant (see: Request) |
 
 ### registrant data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `registrant.userid` | yes (A) | Existing user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
-| `registrant.type` | yes (B) | User type, one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
-| `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
-| `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
-| `registrant.pnumber` | no (B)* | P-number. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a p-number. |
-| `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
-| `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
-| `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
-| `registrant.address.zipcode` | yes (B) | Equivalent of mail form field 4i. |
-| `registrant.address.city` | yes (B) | Equivalent of mail form field 4j. |
-| `registrant.address.countryregionid` | yes (B) | Two-letter country code based on ISO 3166 Alpha 2. Equivalent of mail form field 4fk. (See references below). |
-| `registrant.email` | yes (B) | Equivalent of mail form field 4l. |
-| `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
-| `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
 
 ### domain data section
 
