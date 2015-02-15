@@ -38,13 +38,16 @@ Revision: 2.0
 		- [registrant data section (if validated)](#registrant-data-section-if-validated-1)
 		- [registrant data section (if not validated)](#registrant-data-section-if-not-validated-1)
 		- [domain data section](#domain-data-section-2)
-	- [on_fail](#on_fail)
+	- [on_edit](#on_edit)
 		- [General parameters (status)](#general-parameters-status-2)
 		- [registrar data section](#registrar-data-section-3)
+	- [on_fail](#on_fail)
+		- [General parameters (status)](#general-parameters-status-3)
+		- [registrar data section](#registrar-data-section-4)
 		- [registrant data section](#registrant-data-section-1)
 		- [domain data section](#domain-data-section-3)
 	- [on_error](#on_error)
-		- [General parameters (status)](#general-parameters-status-3)
+		- [General parameters (status)](#general-parameters-status-4)
 - [Validation](#validation)
 - [Implementation Limitations](#implementation-limitations)
 	- [Locale](#locale)
@@ -120,6 +123,8 @@ The same behaviour can be observed for the offered sandbox environments:
 
 * All of the return data has been extended due to validation taking place so the data submitted might have changed over the course of the validation and is hence returned in the final and accepted state. Please note that this is primarily relevant where validation is taking place.
 
+* The requirements for the callback has been tightened, so the endpoints are only called using TLS 1.0. This is due to the transport of the sensitive personal data
+
 ## Available Environments
 
 DK Hostmaster offers the following environments (see also the Data sheet):
@@ -165,12 +170,15 @@ Please see the below section on request flow.
 
 ## registrar data section
 
+Please note that all end-urls should support TLS 1.0.
+
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `registrar.keyid` | yes | Registrar key id, identifying a key held with the registry for validation of the request. |
 | `registrar.reference` | yes | Reference for unique identification of the request from the registrar, equivalent of the mail forms field: 1b. |
 | `registrar.transactionid` | yes | Registrars transactionid |
 | `registrar.url.on_error` | yes | URL for error handling (see Request flow) |
+| `registrar.url.on_edit` | yes | URL for handling edit request by the user(see Request flow) |
 | `registrar.url.on_accept` | yes | URL for accept handling (see Request flow) |
 | `registrar.url.on_fail` | yes | URL for validation failure handling (see Request flow) | 
 | `registrar.url.on_reject` | yes | URL for rejection of request (see Request flow) |
@@ -243,6 +251,7 @@ The following diagram depicts the integration towards the service.
 
 The call-backs to the registrar are handled by the:
 
+* `registrar.on_edit` - called if the user requests edition of the presented data
 * `registrar.on_accept` - called when DK Hostmaster terms and conditions are accepted
 * `registrar.on_reject` - called if the DK Hostmaster terms and conditions are not accepted
 * `registration.on_error` - called in case of an non-critical exception where the error can be handled on the registrar side. 
@@ -357,6 +366,24 @@ This URL is called if the user decides to decline the request, please note that 
 | --------- | --------- | ----------- |
 | `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
 
+## on_edit
+
+This URL is called if the user decides to edit the request, please note that the data has not been validated by DK Hostmaster using external resources and should be resubmitted.
+
+### General parameters (status)
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `token` | yes | Token for inclusion on either mailform or EPP request |
+| `status` | yes | Value: `accepted` |
+
+### registrar data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
+| `registrar.transactionid` | yes | Registrars transactionid |
+
 ## on_fail
 
 This URL is called if the user is unable to validate and all attempts to validate towards external resources are exhausted or the submitted data are not valid for the role of registrant. Please note that the returned data have not been validated and are returned _as-is_.
@@ -378,6 +405,7 @@ This URL is called if the user is unable to validate and all attempts to validat
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
+| None      | -         | No data returned for this section |
 
 ### domain data section
 
