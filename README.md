@@ -533,7 +533,7 @@ For issue reporting related to this specification, the pre-activation service, s
 
 ## Additional Information
 
-More information and the latest revision of this specification are available at [the DK Hostmaster website]((https://www.dk-hostmaster.dk/english/tech-notes/pre-activation/).
+More information and the latest revision of this specification are available at [the DK Hostmaster website](https://www.dk-hostmaster.dk/english/tech-notes/pre-activation/).
 
 # Data Sheet
 
