@@ -114,12 +114,10 @@ In addition to the assets, DK Hostmaster aims to assist client, users and develo
 
 * `registrar.url.on_accept` and `registrar.url.on_reject` now get a complete data set returned from the service, since validation and data alteration is handles by the pre-activation service
 
-* `registrar.language` has been deprecated, instead the service offers two end-points as dedicated URLs indicated the language to be used, like so:
+* `registrar.language` has been deprecated, instead the service offers two end-points as dedicated URLs indicating the language to be used, the same works for the sandbox environment:
 
   * https://preact.dk-hostmaster.dk/en
   * https://preact.dk-hostmaster.dk/da
-
-The same behaviour can be observed for the offered sandbox environments:
 
   * https://preact-sandbox.dk-hostmaster.dk/en
   * https://preact-sandbox.dk-hostmaster.dk/da
