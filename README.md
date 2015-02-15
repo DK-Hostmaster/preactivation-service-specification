@@ -48,6 +48,9 @@ Revision: 2.0
 		- [domain data section](#domain-data-section-3)
 	- [on_error](#on_error)
 		- [General parameters (status)](#general-parameters-status-4)
+		- [registrar data section](#registrar-data-section-5)
+		- [registrant data section](#registrant-data-section-2)
+		- [domain data section](#domain-data-section-4)
 - [Validation](#validation)
 - [Implementation Limitations](#implementation-limitations)
 	- [Locale](#locale)
@@ -312,6 +315,7 @@ This URL is called if the user decides to accept the request, please note that t
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
+| None      | -         | No data returned for this section |
 
 ### domain data section
 
@@ -359,6 +363,7 @@ This URL is called if the user decides to decline the request, please note that 
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
+| None      | -         | No data returned for this section |
 
 ### domain data section
 
@@ -425,6 +430,24 @@ If possible and applicable the error location will be attempted identified if it
 | `status` | yes | Value: `error` |
 | `error` | yes | Error message |
 | `where` | no | Error location indicator if applicable, meaning possibly a missing data field or completely incomprehensible piece of data |
+
+### registrar data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| None      | -         | No data returned for this section |
+
+### registrant data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| None      | -         | No data returned for this section |
+
+### domain data section
+
+| Parameter | Mandatory | Description |
+| --------- | --------- | ----------- |
+| None      | -         | No data returned for this section |
 
 # Validation
 
