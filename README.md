@@ -102,8 +102,6 @@ In addition to the assets, DK Hostmaster aims to assist client, users and develo
 
 ## Migration from version 1 to 2
 
-* `registrar.url.on_edit` deprecated, data correction and validation is handled by DK Hostmaster
-
 * `registrar.url.on_fail` introduced, called of all attempts to validate data are exhausted
 
 * `registrar.pnumber` introduced, for validation of danish legal entities having a CVR number (`registrant.vatnumber`), can be used in conjunction with as `registrant.pnumber` or or be left out
@@ -114,6 +112,11 @@ In addition to the assets, DK Hostmaster aims to assist client, users and develo
 
   * https://preact.dk-hostmaster.dk/en
   * https://preact.dk-hostmaster.dk/da
+
+The same behaviour can be observed for the offered sandbox environments:
+
+  * https://preact-sandbox.dk-hostmaster.dk/en
+  * https://preact-sandbox.dk-hostmaster.dk/da
 
 * All of the return data has been extended due to validation taking place so the data submitted might have changed over the course of the validation and is hence returned in the final and accepted state. Please note that this is primarily relevant where validation is taking place.
 
