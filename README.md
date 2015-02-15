@@ -533,9 +533,7 @@ For issue reporting related to this specification, the pre-activation service, s
 
 ## Additional Information
 
-More information and the latest revision of this specification are available at the DK Hostmaster website:
-
-* [preact-service-central][preact-service-central]
+More information and the latest revision of this specification are available at [the DK Hostmaster website]((https://www.dk-hostmaster.dk/english/tech-notes/pre-activation/).
 
 # Data Sheet
 
@@ -551,8 +549,6 @@ More information and the latest revision of this specification are available at 
 [preact-screendump]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-screendump.png
 
 [preact-request-flow-diagram]: https://raw.githubusercontent.com/DK-Hostmaster/preactivation-service-specification/master/images/preact-request-flow-diagram.png
-
-[preact-service-central]: https://www.dk-hostmaster.dk/english/tech-notes/pre-activation/
 
 [preact-demo-client]: https://github.com/DK-Hostmaster/preact-demo-client-mojolicious
 
