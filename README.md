@@ -526,7 +526,7 @@ Our sandbox currently supports the following test data.
 | Resource | Data           | Note |     
 | -------- | -------------- | ---- |
 | Login    | `PEDAL30`      | |
-| Password | `Pedelvej 1`   | |
+| Password | `asasas12`   | |
 | Keycard  |                | Can be downloaded from: https://appletk.danid.dk/developers/OtpCard?userid=560977162 |
 
 [General information on the use of the demo keycard](https://appletk.danid.dk/developers/viewstatus.jsp?userid=560977162).
