@@ -58,6 +58,7 @@ Revision: 2.0
 	- [Shared-secret Handling](#shared-secret-handling)
 	- [Encryption](#encryption)
 	- [Sandbox Environment](#sandbox-environment-1)
+		- [Test Data](#test-data)
 - [References](#references)
 - [Resources](#resources)
 	- [Demo Client](#demo-client)
@@ -496,6 +497,48 @@ The sandbox is for integration and development purposes and will be used to eval
 * Key-id (`registrar.keyid` - part of the request): 999888
 
 All additional fields should be specified by the calling client.
+
+### Test Data
+
+In addition to the checksum key, the validation part of the flow is sandboxed. 
+
+This mean you cannot provide arbitrary data to the service, since the sandboxed environment does not connect to _live_ external resources. This is both to prohibit extortion of the service and it's interfaces and to be able to support uniform and repeatable behaviour.
+
+Our sandbox currently supports the following test data.
+
+*Name and address of individual:*
+
+| Resource | Data             | Note |
+| -------- | ---------------- | ---- |
+| Name     | `Peter Pedal`    | |
+| Street   | `Pedelvej 1`     | |
+| Zipcode  | `4583`           | |
+| City     | `Sjællands Odde` | |
+
+*Social Security Number (CPR):*
+
+| Resource | Data             | Note |
+| -------- | ---------------- | ---- |
+| CPR      | `2908212555`     | Requires NemID (see below) |
+
+*NemID:*
+
+| Resource | Data           | Note |     
+| -------- | -------------- | ---- |
+| Login    | `PEDAL30`      | |
+| Password | `Pedelvej 1`   | |
+| Keycard  |                | Can be downloaded from: https://appletk.danid.dk/developers/OtpCard?userid=560977162 |
+
+[General information on the use of the demo keycard](https://appletk.danid.dk/developers/viewstatus.jsp?userid=560977162).
+
+*CVR:*
+
+| Resource | Data           | Note |     
+| -------- | -------------- | ---- |
+| CVR      | `24210375`     |      |
+| Name     | `DK HOSTMASTER A/S` | |
+
+The data set might be extended in the future to support more use-case scenarios.
 
 # References
 
