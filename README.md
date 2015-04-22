@@ -35,8 +35,7 @@ Revision: 2.0
 	- [on_reject](#on_reject)
 		- [General parameters (status)](#general-parameters-status-1)
 		- [registrar data section](#registrar-data-section-2)
-		- [registrant data section (if validated)](#registrant-data-section-if-validated-1)
-		- [registrant data section (if not validated)](#registrant-data-section-if-not-validated-1)
+		- [registrant data section](#registrant-data-section-1)
 		- [domain data section](#domain-data-section-2)
 	- [on_edit](#on_edit)
 		- [General parameters (status)](#general-parameters-status-2)
@@ -44,12 +43,12 @@ Revision: 2.0
 	- [on_fail](#on_fail)
 		- [General parameters (status)](#general-parameters-status-3)
 		- [registrar data section](#registrar-data-section-4)
-		- [registrant data section](#registrant-data-section-1)
+		- [registrant data section](#registrant-data-section-2)
 		- [domain data section](#domain-data-section-3)
 	- [on_error](#on_error)
 		- [General parameters (status)](#general-parameters-status-4)
 		- [registrar data section](#registrar-data-section-5)
-		- [registrant data section](#registrant-data-section-2)
+		- [registrant data section](#registrant-data-section-3)
 		- [domain data section](#domain-data-section-4)
 - [Validation](#validation)
 - [Implementation Limitations](#implementation-limitations)
@@ -281,8 +280,7 @@ This URL is called if the user decides to accept the request, please note that t
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `token` | yes | Token for inclusion on either mailform or EPP request |
-| `status` | yes | Value: `accepted` |
+| None      | -         | No data returned for this section |
 
 ### registrar data section
 
@@ -290,6 +288,7 @@ This URL is called if the user decides to accept the request, please note that t
 | --------- | --------- | ----------- |
 | `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
+| `registrar.token` | yes | Token for inclusion on either mailform or EPP request |
 
 ### registrant data section (if validated)
 
@@ -330,35 +329,16 @@ This URL is called if the user decides to decline the request, please note that 
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `status` | yes | Value: `rejected` |
+| None      | -         | No data returned for this section |
 
 ### registrar data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
+| `registrar.reference` | no | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
 
-### registrant data section (if validated)
-
-| Parameter | Mandatory | Description |
-| --------- | --------- | ----------- |
-| `registrant.userid` | yes (A) | Existing user-id, which can be associated with an active user with the registry. This user-id should point to the potential registrant. Equivalent of the mails forms field 4. |
-| `registrant.type` | yes (B) | User type, one of: C (company), P (Public Organisation), A (Association) or I (Individual). Equivalent of the mail forms field 4a. |
-| `registrant.name` | yes (B) | Company, organization, association or person name, in reference to the above field. Equivalent of mail form field 4b. |
-| `registrant.vatnumber` | no (B)* | VAT number, equivalent of mail form 4c. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a VAT number. |
-| `registrant.pnumber` | no (B)* | P-number. Mandatory for type C (company) and P (public organisation), can be provided for A (association) if the specified association has a p-number. |
-| `registrant.address.street1` | yes (B) | Equivalent of mail form field 4f. |
-| `registrant.address.street2` | no (B) | Equivalent of mail form field 4g. |
-| `registrant.address.street3` | no (B) | Equivalent of mail form field 4h. |
-| `registrant.address.zipcode` | yes (B) | Equivalent of mail form field 4i. |
-| `registrant.address.city` | yes (B) | Equivalent of mail form field 4j. |
-| `registrant.address.countryregionid` | yes (B) | Two-letter country code based on ISO 3166 Alpha 2. Equivalent of mail form field 4fk. (See references below). |
-| `registrant.email` | yes (B) | Equivalent of mail form field 4l. |
-| `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
-| `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
-
-### registrant data section (if not validated)
+### registrant data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
@@ -368,7 +348,7 @@ This URL is called if the user decides to decline the request, please note that 
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
+| None      | -         | No data returned for this section |
 
 ## on_edit
 
@@ -396,13 +376,13 @@ This URL is called if the user is unable to validate and all attempts to validat
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `status` | yes | Value: `failed` |
+| None      | -         | No data returned for this section |
 
 ### registrar data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
+| `registrar.reference` | no | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
 
 ### registrant data section
@@ -415,7 +395,7 @@ This URL is called if the user is unable to validate and all attempts to validat
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
+| None      | -         | No data returned for this section |
 
 ## on_error
 
@@ -427,14 +407,16 @@ If possible and applicable the error location will be attempted identified if it
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `status` | yes | Value: `error` |
-| `error` | yes | Error message |
+| `error` | yes | Error key |
+| `error_text` | yes | Error message |
 | `where` | no | Error location indicator if applicable, meaning possibly a missing data field or completely incomprehensible piece of data |
 
 ### registrar data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
-| None      | -         | No data returned for this section |
+| `registrar.reference` | no | Reference for unique identification of the original request from the registrar |
+| `registrar.transactionid` | yes | Registrars transactionid |
 
 ### registrant data section
 
