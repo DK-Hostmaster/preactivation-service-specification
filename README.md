@@ -1,8 +1,6 @@
 # DK Hostmaster Pre-activation Service Specification
-	
-# **_DRAFT_**
 
-2015/01/09
+2015/04/22
 Revision: 2.0
 
 # Table of Contents
