@@ -25,26 +25,26 @@ Revision: 2.0
 - [Checksum Calculation](#checksum-calculation)
 	- [Example Checksum Calculation](#example-checksum-calculation)
 - [Request Flow](#request-flow)
-	- [on_accept](#on_accept)
+	- [on_accept](#onaccept)
 		- [General parameters \(status\)](#general-parameters-status)
 		- [registrar data section](#registrar-data-section-1)
 		- [registrant data section \(if validated\)](#registrant-data-section-if-validated)
 		- [registrant data section \(if not-validated\)](#registrant-data-section-if-not-validated)
 		- [domain data section](#domain-data-section-1)
-	- [on_reject](#on_reject)
+	- [on_reject](#onreject)
 		- [General parameters \(status\)](#general-parameters-status-1)
 		- [registrar data section](#registrar-data-section-2)
 		- [registrant data section](#registrant-data-section-1)
 		- [domain data section](#domain-data-section-2)
-	- [on_edit](#on_edit)
+	- [on_edit](#onedit)
 		- [General parameters \(status\)](#general-parameters-status-2)
 		- [registrar data section](#registrar-data-section-3)
-	- [on_fail](#on_fail)
+	- [on_fail](#onfail)
 		- [General parameters \(status\)](#general-parameters-status-3)
 		- [registrar data section](#registrar-data-section-4)
 		- [registrant data section](#registrant-data-section-2)
 		- [domain data section](#domain-data-section-3)
-	- [on_error](#on_error)
+	- [on_error](#onerror)
 		- [General parameters \(status\)](#general-parameters-status-4)
 		- [registrar data section](#registrar-data-section-5)
 		- [registrant data section](#registrant-data-section-3)
@@ -295,7 +295,7 @@ The edit icon and links will direct back to the registrar for a page where the u
 The data provided to the different handlers are described in detail below. The different handlers are used in different scenarios, there is however no restriction on where the URLs point and they can all 
 point to the same end-point if this is requested.
 
-<a name="on_accept"></a>
+<a name="onaccept"></a>
 ## on_accept
 
 This URL is called if the user decides to accept the request, please note that the returned data have been validated using external resources or the submitted data are valid for the role of registrant.
@@ -350,7 +350,7 @@ This URL is called if the user decides to accept the request, please note that t
 | --------- | --------- | ----------- |
 | `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
 
-<a name="on_reject"></a>
+<a name="onreject"></a>
 ## on_reject
 
 This URL is called if the user decides to decline the request, please note that the returned data have been validated in this case or the submitted data are valid for the role of registrant.
@@ -384,7 +384,7 @@ This URL is called if the user decides to decline the request, please note that 
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="on_edit"></a>
+<a name="onedit"></a>
 ## on_edit
 
 This URL is called if the user decides to edit the request, please note that the data has not been validated by DK Hostmaster using external resources and should be resubmitted.
@@ -405,7 +405,7 @@ This URL is called if the user decides to edit the request, please note that the
 | `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
 
-<a name="on_fail"></a>
+<a name="onfail"></a>
 ## on_fail
 
 This URL is called if the user is unable to validate and all attempts to validate towards external resources are exhausted or the submitted data are not valid for the role of registrant. Please note that the returned data have not been validated and are returned _as-is_.
@@ -439,7 +439,7 @@ This URL is called if the user is unable to validate and all attempts to validat
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="on_error"></a>
+<a name="onerror"></a>
 ## on_error
 
 This URL is called if the request is valid, but it cannot be presented by the pre-activation service.
@@ -607,19 +607,19 @@ We have made a demo client available as open source under the MIT license. The c
 
 DK Hostmaster operates a mailing list for discussion and inquiries  about the DK Hostmaster pre-activation service. To subscribe to this list, write to the address below and follow the instructions. Please note that the list is for technical discussion only, any issues beyond the technical scope will not be responded to, please send these to the contact issue reporting address below and they will be passed on to the appropriate entities within DK Hostmaster.
 
-* preact-discuss+subscribe@liste.dk-hostmaster.dk
+* tech-discuss+subscribe@liste.dk-hostmaster.dk
 
 <a name="issue-reporting"></a>
 ## Issue Reporting
 
 For issue reporting related to this specification, the pre-activation service, sandbox or production environments, please contact us.  You are of course welcome to post these to the mailing list mentioned above, otherwise use the address specified below:
 
-* tech@dk-hostmaster.dk
+* info@dk-hostmaster.dk
 
 <a name="additional-information"></a>
 ## Additional Information
 
-More information and the latest revision of this specification are available at [the DK Hostmaster website](https://www.dk-hostmaster.dk/english/tech-notes/pre-activation/).
+More information and the latest revision of this specification are available at [the DK Hostmaster website](https://www.dk-hostmaster.dk/en/pre-activation).
 
 <a name="data-sheet"></a>
 # Data Sheet
@@ -645,7 +645,7 @@ More information and the latest revision of this specification are available at 
 
 [RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)]: https://tools.ietf.org/html/rfc4634
 
-[Current domain registration form]: https://www.dk-hostmaster.dk/fileadmin/formularer/dk-5.00en.txt
+[Current domain registration form]: https://github.com/DK-Hostmaster/mailform-service-specification/blob/master/5.00/5.00en.txt
 
-[Documentation on the current domain registration form]: https://www.dk-hostmaster.dk/english/technical-administration/forms/register-domainname/
+[Documentation on the current domain registration form]: https://github.com/DK-Hostmaster/mailform-service-specification
 
