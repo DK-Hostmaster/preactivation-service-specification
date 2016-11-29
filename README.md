@@ -258,7 +258,7 @@ domain.1.name: æøå.dk
 Concatenated string:
 
 ```
-nolongersecret;reg-999999;1024;æøå.dk
+dkhm-sandbox-test-secret;REG-999999;1024;æøå.dk
 ```
 
 ```bash
