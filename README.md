@@ -1,3 +1,8 @@
+# DK Hostmaster Pre-activation Service Specification
+
+2018-09-18
+Revision: 2.1
+
 ---
 
 :warning:  TAKE NOTICE!  :warning:
@@ -11,11 +16,6 @@ Please contact us if you have any questions:
 `tech@dk-hostmaster.dk`
 
 ---
-
-# DK Hostmaster Pre-activation Service Specification
-
-2018-09-18
-Revision: 2.1
 
 ## Table of Contents
 
