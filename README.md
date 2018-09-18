@@ -1,79 +1,79 @@
 # DK Hostmaster Pre-activation Service Specification
 
-2015/04/22
-Revision: 2.0
+2018-09-18
+Revision: 2.1
 
-# Table of Contents
+## Table of Contents
 
-<!-- MarkdownTOC depth=3 -->
+<!-- MarkdownTOC bracket=round levels="1,2,3,4,5" indent="  " -->
 
 - [Introduction](#introduction)
 - [About this Document](#about-this-document)
-	- [License](#license)
-	- [Document History](#document-history)
+  - [License](#license)
+  - [Document History](#document-history)
 - [The .dk Registry in Brief](#the-dk-registry-in-brief)
 - [Pre-activation Service](#pre-activation-service)
-	- [Migration from version 1 to 2](#migration-from-version-1-to-2)
-	- [Available Environments](#available-environments)
-		- [Production Environment](#production-environment)
-		- [Sandbox Environment](#sandbox-environment)
+  - [Migration from version 1 to 2](#migration-from-version-1-to-2)
+  - [Available Environments](#available-environments)
+    - [Production Environment](#production-environment)
+    - [Sandbox Environment](#sandbox-environment)
 - [Implementation Requirements](#implementation-requirements)
-	- [General parameters \(checksum\)](#general-parameters-checksum)
-	- [registrar data section](#registrar-data-section)
-	- [registrant data section](#registrant-data-section)
-	- [domain data section](#domain-data-section)
+  - [General parameters \(checksum\)](#general-parameters-checksum)
+  - [registrar data section](#registrar-data-section)
+  - [registrant data section](#registrant-data-section)
+  - [domain data section](#domain-data-section)
 - [Checksum Calculation](#checksum-calculation)
-	- [Example Checksum Calculation](#example-checksum-calculation)
+  - [Example Checksum Calculation](#example-checksum-calculation)
 - [Request Flow](#request-flow)
-	- [on_accept](#onaccept)
-		- [General parameters \(status\)](#general-parameters-status)
-		- [registrar data section](#registrar-data-section-1)
-		- [registrant data section \(if validated\)](#registrant-data-section-if-validated)
-		- [registrant data section \(if not-validated\)](#registrant-data-section-if-not-validated)
-		- [domain data section](#domain-data-section-1)
-	- [on_reject](#onreject)
-		- [General parameters \(status\)](#general-parameters-status-1)
-		- [registrar data section](#registrar-data-section-2)
-		- [registrant data section](#registrant-data-section-1)
-		- [domain data section](#domain-data-section-2)
-	- [on_edit](#onedit)
-		- [General parameters \(status\)](#general-parameters-status-2)
-		- [registrar data section](#registrar-data-section-3)
-	- [on_fail](#onfail)
-		- [General parameters \(status\)](#general-parameters-status-3)
-		- [registrar data section](#registrar-data-section-4)
-		- [registrant data section](#registrant-data-section-2)
-		- [domain data section](#domain-data-section-3)
-	- [on_error](#onerror)
-		- [General parameters \(status\)](#general-parameters-status-4)
-		- [registrar data section](#registrar-data-section-5)
-		- [registrant data section](#registrant-data-section-3)
-		- [domain data section](#domain-data-section-4)
+  - [on_accept](#on_accept)
+    - [General parameters \(status\)](#general-parameters-status)
+    - [registrar data section](#registrar-data-section-1)
+    - [registrant data section \(if validated\)](#registrant-data-section-if-validated)
+    - [registrant data section \(if not-validated\)](#registrant-data-section-if-not-validated)
+    - [domain data section](#domain-data-section-1)
+  - [on_reject](#on_reject)
+    - [General parameters \(status\)](#general-parameters-status-1)
+    - [registrar data section](#registrar-data-section-2)
+    - [registrant data section](#registrant-data-section-1)
+    - [domain data section](#domain-data-section-2)
+  - [on_edit](#on_edit)
+    - [General parameters \(status\)](#general-parameters-status-2)
+    - [registrar data section](#registrar-data-section-3)
+  - [on_fail](#on_fail)
+    - [General parameters \(status\)](#general-parameters-status-3)
+    - [registrar data section](#registrar-data-section-4)
+    - [registrant data section](#registrant-data-section-2)
+    - [domain data section](#domain-data-section-3)
+  - [on_error](#on_error)
+    - [General parameters \(status\)](#general-parameters-status-4)
+    - [registrar data section](#registrar-data-section-5)
+    - [registrant data section](#registrant-data-section-3)
+    - [domain data section](#domain-data-section-4)
 - [Validation](#validation)
 - [Implementation Limitations](#implementation-limitations)
-	- [Locale](#locale)
-	- [Amount of Domain Names](#amount-of-domain-names)
-	- [Shared-secret Handling](#shared-secret-handling)
-	- [Encryption](#encryption)
-	- [Sandbox Environment](#sandbox-environment-1)
-		- [Test Data](#test-data)
+  - [Locale](#locale)
+  - [Amount of Domain Names](#amount-of-domain-names)
+  - [Shared-secret Handling](#shared-secret-handling)
+  - [Encryption](#encryption)
+  - [Sandbox Environment](#sandbox-environment-1)
+    - [Test Data](#test-data)
 - [References](#references)
 - [Resources](#resources)
-	- [Demo Client](#demo-client)
-	- [Mailing list](#mailing-list)
-	- [Issue Reporting](#issue-reporting)
-	- [Additional Information](#additional-information)
+  - [Demo Client](#demo-client)
+  - [Mailing list](#mailing-list)
+  - [Issue Reporting](#issue-reporting)
+  - [Additional Information](#additional-information)
 - [Data Sheet](#data-sheet)
 
 <!-- /MarkdownTOC -->
 
-<a name="introduction"></a>
-# Introduction
+<a id="introduction"></a>
+## Introduction
 
 This document describes and specifies the implementation offered by DK Hostmaster for interaction with the central registry for the ccTLD dk using our pre-activation service. It is primarily aimed at a technical audience, and the reader is required to have prior knowledge of domain name registration.
 
-<a name="about-this-document"></a>
-# About this Document
+<a id="about-this-document"></a>
+## About this Document
 
 This specification describes version 2 (2.X.X) of the service implementation. Future releases will be reflected in updates to this specification, please see the document history section below.
 
@@ -85,31 +85,35 @@ All examples provided in the document are fabricated or changed from real data t
 
 Printable version can be obtained via [this link](https://gitprint.com/DK-Hostmaster/preactivation-service-specification/blob/master/README.md), using the gitprint service.
 
-<a name="license"></a>
-## License
+<a id="license"></a>
+### License
 
 This document is copyright by DK Hostmaster A/S and is licensed under the MIT License, please see the separate LICENSE file for details.
 
-<a name="document-history"></a>
-## Document History
+<a id="document-history"></a>
+### Document History
 
-* 2.0 2015-01-09
-  * Updated to reflect the version 2 of the service
-  * Updated checksum calculation example, the behaviour of the `echo` command had to be taken into consideration
+- 2.1 2018-09-18
+  - The service has been deprecated, and the specification is no longer maintained
+  - Cleaned the Markdown according to MarkdownLint rules
 
-* 1.1 2014-06-16 
-  * No longer in draft. Added mention of demo client on Github.
+- 2.0 2015-01-09
+  - Updated to reflect the version 2 of the service
+  - Updated checksum calculation example, the behaviour of the `echo` command had to be taken into consideration
 
-* 1.0 2014-02-28 
-  * Initial revision
+- 1.1 2014-06-16
+  - No longer in draft. Added mention of demo client on Github.
 
-<a name="the-dk-registry-in-brief"></a>
-# The .dk Registry in Brief
+- 1.0 2014-02-28
+  - Initial revision
+
+<a id="the-dk-registry-in-brief"></a>
+## The .dk Registry in Brief
 
 DK Hostmaster is the registry for the ccTLD for Denmark (dk). The current model used in Denmark is based on a sole registry, with DK Hostmaster maintaining the central DNS registry.
 
-<a name="pre-activation-service"></a>
-# Pre-activation Service
+<a id="pre-activation-service"></a>
+## Pre-activation Service
 
 The DK Hostmaster pre-activation Service is based on a SOA architecture. The implementation is regarded as a service offered to external parties offering pre-activation to customers.
 
@@ -117,29 +121,29 @@ The service requires the use of and possible development of client-side software
 
 In addition to the assets, DK Hostmaster aims to assist client, users and developers of client software with integration towards DK Hostmaster and therefore provide facilities to ease this integration. This is primarily centered around a sandbox environment and related documentation.
 
-<a name="migration-from-version-1-to-2"></a>
-## Migration from version 1 to 2
+<a id="migration-from-version-1-to-2"></a>
+### Migration from version 1 to 2
 
-* `registrar.url.on_fail` introduced, called of all attempts to validate data are exhausted
+- `registrar.url.on_fail` introduced, called of all attempts to validate data are exhausted
 
-* `registrar.pnumber` introduced, for validation of danish legal entities having a CVR number (`registrant.vatnumber`), can be used in conjunction with as `registrant.pnumber` or or be left out
+- `registrar.pnumber` introduced, for validation of danish legal entities having a CVR number (`registrant.vatnumber`), can be used in conjunction with as `registrant.pnumber` or or be left out
 
-* `registrar.url.on_accept` and `registrar.url.on_reject` now get a complete data set returned from the service, since validation and data alteration is handles by the pre-activation service
+- `registrar.url.on_accept` and `registrar.url.on_reject` now get a complete data set returned from the service, since validation and data alteration is handles by the pre-activation service
 
-* `registrar.language` has been deprecated, instead the service offers two end-points as dedicated URLs indicating the language to be used, the same works for the sandbox environment:
+- `registrar.language` has been deprecated, instead the service offers two end-points as dedicated URLs indicating the language to be used, the same works for the sandbox environment:
 
-  * https://preact.dk-hostmaster.dk/en
-  * https://preact.dk-hostmaster.dk/da
+- https://preact.dk-hostmaster.dk/en
+- https://preact.dk-hostmaster.dk/da
 
-  * https://preact-sandbox.dk-hostmaster.dk/en
-  * https://preact-sandbox.dk-hostmaster.dk/da
+- https://preact-sandbox.dk-hostmaster.dk/en
+- https://preact-sandbox.dk-hostmaster.dk/da
 
-* All of the return data has been extended due to validation taking place so the data submitted might have changed over the course of the validation and is hence returned in the final and accepted state. Please note that this is primarily relevant where validation is taking place.
+- All of the return data has been extended due to validation taking place so the data submitted might have changed over the course of the validation and is hence returned in the final and accepted state. Please note that this is primarily relevant where validation is taking place.
 
-* The requirements for the callback has been tightened, so the endpoints are only called using TLS 1.0. This is due to the transport of the sensitive personal data
+- The requirements for the callback has been tightened, so the endpoints are only called using TLS 1.0. This is due to the transport of the sensitive personal data
 
-<a name="available-environments"></a>
-## Available Environments
+<a id="available-environments"></a>
+### Available Environments
 
 DK Hostmaster offers the following environments (see also the Data sheet):
 
@@ -148,46 +152,46 @@ DK Hostmaster offers the following environments (see also the Data sheet):
 | production  | production | This environment is the production environment |
 | sandbox     | development | This environment is intended for client development towards the DK Hostmaster pre-activation service. Also [the demo client][preact-demo-client] uses this environment. |
 
-<a name="production-environment"></a>
-### Production Environment
+<a id="production-environment"></a>
+#### Production Environment
 
 In order to use the production environment, the registrar has to provide DK Hostmaster with a shared-secret. This will be appointed a key id, which will have to be used on all subsequent requests toward the production environment as `registrar.keyid`. Please see the section on Checksum calculation below.
 
-<a name="sandbox-environment"></a>
-### Sandbox Environment
+<a id="sandbox-environment"></a>
+#### Sandbox Environment
 
 The sandbox environment offers only a known dummy registrar-id and related key-id (`registrar.keyid`), so all requests to the sandbox environment should use this parameter in all requests and be presented as the demonstration registar.
 
-* `registrar.keyid` = 999888
+- `registrar.keyid` = 999888
 
-<a name="implementation-requirements"></a>
-# Implementation Requirements
+<a id="implementation-requirements"></a>
+## Implementation Requirements
 
 This section outlines the overall requirements in regard to implementing an pre-activation integration to work with the DK Hostmaster pre-activation service.
 The service is available via HTTPS to the end-customer, meaning for domain name registration the associated registrant. The registrar integrates with the service by directing a request to the the services address bearing designated query parameters.
 
 A request should consist of the following:
 
-* checksum
-* registrar data section
-* registrant data section
-* domain data section 
+- checksum
+- registrar data section
+- registrant data section
+- domain data section
 
 The checksum is calculated on a per request basis and relies on request data and predefined values. The latter is simply to protect the registrar userid for being transported in the open via third-party, see more on the checksum calculation in the section below.
 
-The registrar data section consists on a set of data specifying handlers for the request flow of the request, not meaning the HTTP request, but the complete request. 
+The registrar data section consists on a set of data specifying handlers for the request flow of the request, not meaning the HTTP request, but the complete request.
 
 Please see the below section on request flow.
 
-<a name="general-parameters-checksum"></a>
-## General parameters (checksum)
+<a id="general-parameters-checksum"></a>
+### General parameters (checksum)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `checksum` | yes | See section on checksum calculation |
 
-<a name="registrar-data-section"></a>
-## registrar data section
+<a id="registrar-data-section"></a>
+### registrar data section
 
 Please note that all end-urls should support TLS 1.0.
 
@@ -199,11 +203,11 @@ Please note that all end-urls should support TLS 1.0.
 | `registrar.url.on_error` | yes | URL for error handling (see Request flow) |
 | `registrar.url.on_edit` | yes | URL for handling edit request by the user(see Request flow) |
 | `registrar.url.on_accept` | yes | URL for accept handling (see Request flow) |
-| `registrar.url.on_fail` | yes | URL for validation failure handling (see Request flow) | 
+| `registrar.url.on_fail` | yes | URL for validation failure handling (see Request flow) |
 | `registrar.url.on_reject` | yes | URL for rejection of request (see Request flow) |
 
-<a name="registrant-data-section"></a>
-## registrant data section
+<a id="registrant-data-section"></a>
+### registrant data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
@@ -222,27 +226,27 @@ Please note that all end-urls should support TLS 1.0.
 | `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
 | `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
 
-<a name="domain-data-section"></a>
-## domain data section
+<a id="domain-data-section"></a>
+### domain data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10 since we only allow up to 10 domain names in the same request. |
 
-<a name="checksum-calculation"></a>
-# Checksum Calculation
+<a id="checksum-calculation"></a>
+## Checksum Calculation
 
 The checksum calculation is based on the following parameters taken from the request and the data stored with DK Hostmaster.
 
-* shared secret
-* registrar userid
-* registrars transaction id (`registrar.transactionid`)
-* 1-10 domain names (`domain.N.name`)
+- shared secret
+- registrar userid
+- registrars transaction id (`registrar.transactionid`)
+- 1-10 domain names (`domain.N.name`)
 
 These should be concatenated to a single string separated by `;` (semicolon)
 
-<a name="example-checksum-calculation"></a>
-## Example Checksum Calculation
+<a id="example-checksum-calculation"></a>
+### Example Checksum Calculation
 
 Example with one domain name.
 
@@ -262,12 +266,12 @@ dkhm-sandbox-test-secret;REG-999999;1024;æøå.dk
 ```
 
 ```bash
-$ echo -n 'dkhm-sandbox-test-secret;REG-999999;1024;æøå.dk' | shasum -a 256 
+$ echo -n 'dkhm-sandbox-test-secret;REG-999999;1024;æøå.dk' | shasum -a 256
 f74c49ad3133266bedaebc121a8f82ac81216414783c48d967d61dac15ac0fff
 ```
 
-<a name="request-flow"></a>
-# Request Flow
+<a id="request-flow"></a>
+## Request Flow
 
 The following diagram depicts the integration towards the service.
 
@@ -275,16 +279,16 @@ The following diagram depicts the integration towards the service.
 
 The call-backs to the registrar are handled by the:
 
-* `registrar.on_edit` - called if the user requests edition of the presented data
-* `registrar.on_accept` - called when DK Hostmaster terms and conditions are accepted
-* `registrar.on_reject` - called if the DK Hostmaster terms and conditions are not accepted
-* `registration.on_error` - called in case of an non-critical exception where the error can be handled on the registrar side. 
-* `registration.on_fail` - called in case of an validation attempts are exhausted.
+- `registrar.on_edit` - called if the user requests edition of the presented data
+- `registrar.on_accept` - called when DK Hostmaster terms and conditions are accepted
+- `registrar.on_reject` - called if the DK Hostmaster terms and conditions are not accepted
+- `registration.on_error` - called in case of an non-critical exception where the error can be handled on the registrar side.
+- `registration.on_fail` - called in case of an validation attempts are exhausted.
 
 Critical exceptions are presented locally. Examples of critical issues are:
 
-  * Service issues
-  * Possible security violations
+- Service issues
+- Possible security violations
 
 The user is presented with the following page on the redirect:
 
@@ -292,23 +296,23 @@ The user is presented with the following page on the redirect:
 
 The edit icon and links will direct back to the registrar for a page where the user can edit the presented data. The ‘I accept’ and ‘I decline’ also direct back to the registrar indicating the action taken by the end-user. When the page is initially called and if the request contains invalid data, under the conditions that they can be validated, will redirect to an error page with the registrar indicating the field not validating.
 
-The data provided to the different handlers are described in detail below. The different handlers are used in different scenarios, there is however no restriction on where the URLs point and they can all 
+The data provided to the different handlers are described in detail below. The different handlers are used in different scenarios, there is however no restriction on where the URLs point and they can all
 point to the same end-point if this is requested.
 
-<a name="onaccept"></a>
-## on_accept
+<a id="on_accept"></a>
+### on_accept
 
 This URL is called if the user decides to accept the request, please note that the returned data have been validated using external resources or the submitted data are valid for the role of registrant.
 
-<a name="general-parameters-status"></a>
-### General parameters (status)
+<a id="general-parameters-status"></a>
+#### General parameters (status)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="registrar-data-section-1"></a>
-### registrar data section
+<a id="registrar-data-section-1"></a>
+#### registrar data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
@@ -316,8 +320,8 @@ This URL is called if the user decides to accept the request, please note that t
 | `registrar.transactionid` | yes | Registrars transactionid |
 | `registrar.token` | yes | Token for inclusion on either mailform or EPP request |
 
-<a name="registrant-data-section-if-validated"></a>
-### registrant data section (if validated)
+<a id="registrant-data-section-if-validated"></a>
+#### registrant data section (if validated)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
@@ -336,117 +340,117 @@ This URL is called if the user decides to accept the request, please note that t
 | `registrant.phone` | yes (B) | Equivalent of mail form field 4m. |
 | `registrant.telefax` | no (B) | Equivalent of mail form field 4n. |
 
-<a name="registrant-data-section-if-not-validated"></a>
-### registrant data section (if not-validated)
+<a id="registrant-data-section-if-not-validated"></a>
+#### registrant data section (if not-validated)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="domain-data-section-1"></a>
-### domain data section
+<a id="domain-data-section-1"></a>
+#### domain data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `domain.N.name` | yes | Valid Danish domain name. N indicates a number between 1 and 10. |
 
-<a name="onreject"></a>
-## on_reject
+<a id="on_reject"></a>
+### on_reject
 
 This URL is called if the user decides to decline the request, please note that the returned data have been validated in this case or the submitted data are valid for the role of registrant.
 
-<a name="general-parameters-status-1"></a>
-### General parameters (status)
+<a id="general-parameters-status-1"></a>
+#### General parameters (status)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="registrar-data-section-2"></a>
-### registrar data section
+<a id="registrar-data-section-2"></a>
+#### registrar data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `registrar.reference` | no | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
 
-<a name="registrant-data-section-1"></a>
-### registrant data section
+<a id="registrant-data-section-1"></a>
+#### registrant data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="domain-data-section-2"></a>
-### domain data section
+<a id="domain-data-section-2"></a>
+#### domain data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="onedit"></a>
-## on_edit
+<a id="on_edit"></a>
+### on_edit
 
 This URL is called if the user decides to edit the request, please note that the data has not been validated by DK Hostmaster using external resources and should be resubmitted.
 
-<a name="general-parameters-status-2"></a>
-### General parameters (status)
+<a id="general-parameters-status-2"></a>
+#### General parameters (status)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `token` | yes | Token for inclusion on either mailform or EPP request |
 | `status` | yes | Value: `accepted` |
 
-<a name="registrar-data-section-3"></a>
-### registrar data section
+<a id="registrar-data-section-3"></a>
+#### registrar data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `registrar.reference` | yes | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
 
-<a name="onfail"></a>
-## on_fail
+<a id="on_fail"></a>
+### on_fail
 
 This URL is called if the user is unable to validate and all attempts to validate towards external resources are exhausted or the submitted data are not valid for the role of registrant. Please note that the returned data have not been validated and are returned _as-is_.
 
-<a name="general-parameters-status-3"></a>
-### General parameters (status)
+<a id="general-parameters-status-3"></a>
+#### General parameters (status)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="registrar-data-section-4"></a>
-### registrar data section
+<a id="registrar-data-section-4"></a>
+#### registrar data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `registrar.reference` | no | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
 
-<a name="registrant-data-section-2"></a>
-### registrant data section
+<a id="registrant-data-section-2"></a>
+#### registrant data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="domain-data-section-3"></a>
-### domain data section
+<a id="domain-data-section-3"></a>
+#### domain data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="onerror"></a>
-## on_error
+<a id="on_error"></a>
+### on_error
 
 This URL is called if the request is valid, but it cannot be presented by the pre-activation service.
 If possible and applicable the error location will be attempted identified if it relates to a single field pointing to malformed or missing data. The latter will be described in the error message in the `error` field. The request should be resubmitted if possible.
 
-<a name="general-parameters-status-4"></a>
-### General parameters (status)
+<a id="general-parameters-status-4"></a>
+#### General parameters (status)
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
@@ -455,30 +459,30 @@ If possible and applicable the error location will be attempted identified if it
 | `error_text` | yes | Error message |
 | `where` | no | Error location indicator if applicable, meaning possibly a missing data field or completely incomprehensible piece of data |
 
-<a name="registrar-data-section-5"></a>
-### registrar data section
+<a id="registrar-data-section-5"></a>
+#### registrar data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | `registrar.reference` | no | Reference for unique identification of the original request from the registrar |
 | `registrar.transactionid` | yes | Registrars transactionid |
 
-<a name="registrant-data-section-3"></a>
-### registrant data section
+<a id="registrant-data-section-3"></a>
+#### registrant data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="domain-data-section-4"></a>
-### domain data section
+<a id="domain-data-section-4"></a>
+#### domain data section
 
 | Parameter | Mandatory | Description |
 | --------- | --------- | ----------- |
 | None      | -         | No data returned for this section |
 
-<a name="validation"></a>
-# Validation
+<a id="validation"></a>
+## Validation
 
 Validation of the registrant is a legal requirement outlined in the danish law on domain names.
 
@@ -499,45 +503,45 @@ Failure to validate according to the above matrix, results in a callback to `on_
 
 Please note that the validation process is relevant for both new and existing users if a referenced user entity has not been validated on a prior occassion.
 
-<a name="implementation-limitations"></a>
-# Implementation Limitations
+<a id="implementation-limitations"></a>
+## Implementation Limitations
 The service comes with some limitations, these are listed here.
 
-<a name="locale"></a>
-## Locale
+<a id="locale"></a>
+### Locale
 
 We only support Danish and English as languages. See: `registrar.language`
 
-<a name="amount-of-domain-names"></a>
-## Amount of Domain Names
+<a id="amount-of-domain-names"></a>
+### Amount of Domain Names
 
 We only support up to 10 domain names in a single request. If requirements for larger pre-activation requests, this number can be raised.
 
-<a name="shared-secret-handling"></a>
-## Shared-secret Handling
+<a id="shared-secret-handling"></a>
+### Shared-secret Handling
 
 For now the process of handling the shared-secret is handled manually and via DK Hostmaster, please see the technical contact below.
 
-<a name="encryption"></a>
-## Encryption
+<a id="encryption"></a>
+### Encryption
 
 For now DK Hostmaster only support SHA-256.
 
-<a name="sandbox-environment-1"></a>
-## Sandbox Environment
+<a id="sandbox-environment-1"></a>
+### Sandbox Environment
 
 The sandbox is for integration and development purposes and will be used to evaluate changes to the protocol prior to deployment in production. The environment comes with some predefined data:
 
-* Registrar-id: REG-999999
-* Shared secret: dkhm-sandbox-test-secret
-* Key-id (`registrar.keyid` - part of the request): 999888
+- Registrar-id: REG-999999
+- Shared secret: dkhm-sandbox-test-secret
+- Key-id (`registrar.keyid` - part of the request): 999888
 
 All additional fields should be specified by the calling client.
 
-<a name="test-data"></a>
-### Test Data
+<a id="test-data"></a>
+#### Test Data
 
-In addition to the checksum key, the validation part of the flow is sandboxed. 
+In addition to the checksum key, the validation part of the flow is sandboxed.
 
 This mean you cannot provide arbitrary data to the service, since the sandboxed environment does not connect to _live_ external resources. This is both to prohibit extortion of the service and it's interfaces and to be able to support uniform and repeatable behaviour.
 
@@ -560,7 +564,7 @@ Our sandbox currently supports the following test data.
 
 *NemID:*
 
-| Resource | Data           | Note |     
+| Resource | Data           | Note |
 | -------- | -------------- | ---- |
 | Login    | `PEDAL30`      | |
 | Password | `asasas12`   | |
@@ -570,59 +574,59 @@ Our sandbox currently supports the following test data.
 
 *CVR:*
 
-| Resource | Data           | Note |     
+| Resource | Data           | Note |
 | -------- | -------------- | ---- |
 | CVR      | `24210375`     |      |
 | Name     | `DK HOSTMASTER A/S` | |
 
 The data set might be extended in the future to support more use-case scenarios.
 
-<a name="references"></a>
-# References
+<a id="references"></a>
+## References
 
 Here is a list of documents and references used in this document:
 
-* [DK Hostmaster: General Terms and Conditions][General Terms and Conditions]
-* [DK Hostmaster: EPP Service Specification][DK Hostmaster EPP Service Specification]
-* [DK Hostmaster: Current domain registration form][Current domain registration form]
-* [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
-* [ISO 3166: Country codes][ISO 3166: Country codes]
-* [RFC 3282: Content-language headers][RFC 3282: Content-language headers]
-* [RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)][RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)]
+- [DK Hostmaster: General Terms and Conditions][General Terms and Conditions]
+- [DK Hostmaster: EPP Service Specification][DK Hostmaster EPP Service Specification]
+- [DK Hostmaster: Current domain registration form][Current domain registration form]
+- [DK Hostmaster: Documentation on the current domain registration form][Documentation on the current domain registration form]
+- [ISO 3166: Country codes][ISO 3166: Country codes]
+- [RFC 3282: Content-language headers][RFC 3282: Content-language headers]
+- [RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)][RFC 4634: US Secure Hash Algorithms (SHA and HMAC-SHA)]
 
-<a name="resources"></a>
-# Resources
+<a id="resources"></a>
+## Resources
 
 A list of resources for DK Hostmaster pre-activation service support is listed below.
 
-<a name="demo-client"></a>
-## Demo Client
+<a id="demo-client"></a>
+### Demo Client
 
 We have made a demo client available as open source under the MIT license. The client is implemented using Perl and Mojolicious and is available on Github:
 
-* [preact-demo-client][preact-demo-client]
+- [preact-demo-client][preact-demo-client]
 
-<a name="mailing-list"></a>
-## Mailing list
+<a id="mailing-list"></a>
+### Mailing list
 
 DK Hostmaster operates a mailing list for discussion and inquiries  about the DK Hostmaster pre-activation service. To subscribe to this list, write to the address below and follow the instructions. Please note that the list is for technical discussion only, any issues beyond the technical scope will not be responded to, please send these to the contact issue reporting address below and they will be passed on to the appropriate entities within DK Hostmaster.
 
-* tech-discuss+subscribe@liste.dk-hostmaster.dk
+- tech-discuss+subscribe@liste.dk-hostmaster.dk
 
-<a name="issue-reporting"></a>
-## Issue Reporting
+<a id="issue-reporting"></a>
+### Issue Reporting
 
 For issue reporting related to this specification, the pre-activation service, sandbox or production environments, please contact us.  You are of course welcome to post these to the mailing list mentioned above, otherwise use the address specified below:
 
-* info@dk-hostmaster.dk
+- info@dk-hostmaster.dk
 
-<a name="additional-information"></a>
-## Additional Information
+<a id="additional-information"></a>
+### Additional Information
 
 More information and the latest revision of this specification are available at [the DK Hostmaster website](https://www.dk-hostmaster.dk/en/pre-activation).
 
-<a name="data-sheet"></a>
-# Data Sheet
+<a id="data-sheet"></a>
+## Data Sheet
 
 | Environment | URI | Description |
 | ----------- | --- | ----- |
@@ -648,4 +652,3 @@ More information and the latest revision of this specification are available at 
 [Current domain registration form]: https://github.com/DK-Hostmaster/mailform-service-specification/blob/master/5.00/5.00en.txt
 
 [Documentation on the current domain registration form]: https://github.com/DK-Hostmaster/mailform-service-specification
-
