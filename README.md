@@ -1,3 +1,17 @@
+---
+
+:warning:  TAKE NOTICE!  :warning:
+
+This service is being decommissioned by the end of August 2018.
+
+Please refer to the [EPP service](https://github.com/DK-Hostmaster/epp-service-specification) for implementation of domain name registration towards DK Hostmaster A/S.
+
+Please contact us if you have any questions:
+
+`tech@dk-hostmaster.dk`
+
+---
+
 # DK Hostmaster Pre-activation Service Specification
 
 2018-09-18
